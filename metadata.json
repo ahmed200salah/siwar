@@ -1,0 +1,5 @@
+{
+  "name": "AI Conversation Dashboard",
+  "description": "A dashboard to view conversations between an AI agent and customers, sourced from a Supabase database. It provides a clear, chat-like interface to review interaction histories by session.",
+  "requestFramePermissions": []
+}
