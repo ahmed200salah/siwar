@@ -1,5 +1,6 @@
 import React from 'react';
 import type { SessionDisplayInfo } from '../types';
+import { motion } from 'framer-motion';
 
 interface SessionListProps {
   sessions: SessionDisplayInfo[];
@@ -24,9 +25,37 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, selectedSession, on
 
 
   return (
-    <nav className="flex-1 overflow-y-auto p-2 space-y-1">
+    <>
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(51, 65, 85, 0.2);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(100, 116, 139, 0.5);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(100, 116, 139, 0.7);
+        }
+      `}</style>
+      <motion.nav
+        className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: 0.05
+            }
+          }
+        }}
+      >
       {sessions.map((session) => (
-        <button
+        <motion.button
           key={session.id}
           onClick={() => onSelectSession(session.id)}
           className={`group w-full flex items-center px-3 py-2 text-sm rounded-md transition-all duration-200 ease-in-out truncate ${
@@ -34,12 +63,20 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, selectedSession, on
               ? 'bg-sky-600/30 text-white font-semibold border-l-4 border-sky-400'
               : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
           }`}
+          variants={{
+            hidden: { opacity: 0, x: -20 },
+            visible: { opacity: 1, x: 0 }
+          }}
+          transition={{ duration: 0.2 }}
+          whileHover={{ scale: 1.02, x: 2 }}
+          whileTap={{ scale: 0.98 }}
         >
           <ChatIcon />
           {session.name}
-        </button>
+        </motion.button>
       ))}
-    </nav>
+    </motion.nav>
+    </>
   );
 };
 

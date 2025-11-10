@@ -57,10 +57,10 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   return (
     <div className={`flex items-start gap-3.5 ${isUser ? 'justify-end' : 'justify-start'}`}>
       {!isUser && <AssistantIcon />}
-      <div 
+      <div
         className={`max-w-xl px-4 py-3 rounded-xl shadow-md text-sm leading-relaxed ${
-          isUser 
-            ? 'bg-sky-600 text-white rounded-br-none' 
+          isUser
+            ? 'bg-sky-600 text-white rounded-br-none'
             : 'bg-slate-700 text-slate-200 rounded-bl-none'
         }`}
       >

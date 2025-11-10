@@ -9,11 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^12.23.24",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-markdown": "9",
-    "remark-gfm": "4",
-    "rehype-raw": "7"
+    "rehype-raw": "7",
+    "remark-gfm": "4"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

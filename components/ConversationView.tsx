@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import type { Message } from '../types';
 import ChatMessage from './ChatMessage';
+import { motion } from 'framer-motion';
 
 interface ConversationViewProps {
   messages: Message[];
@@ -36,21 +37,39 @@ const ConversationView: React.FC<ConversationViewProps> = ({ messages, sessionId
 
   return (
     <>
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(51, 65, 85, 0.3);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(100, 116, 139, 0.6);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(100, 116, 139, 0.8);
+        }
+      `}</style>
       <header className="p-4 border-b border-slate-700/60 bg-slate-800/20 flex items-center gap-4">
-        <button 
-          onClick={onBack} 
+        <motion.button
+          onClick={onBack}
           className="md:hidden p-1 rounded-full text-slate-300 hover:bg-slate-700 hover:text-white transition-colors"
           aria-label="Back to sessions"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
-        </button>
+         </motion.button>
         <h2 className="text-lg font-semibold text-white truncate min-w-0">
           Conversation with <span className="text-sky-400 font-bold">{sessionDisplayName}</span>
         </h2>
       </header>
-      <div className="flex-1 p-4 sm:p-6 overflow-y-auto bg-slate-900/30">
+      <div className="flex-1 p-4 sm:p-6 overflow-y-auto bg-slate-900/30 custom-scrollbar">
         <div className="space-y-4">
           {messages.map((message, index) => (
             <ChatMessage key={index} message={message} />
