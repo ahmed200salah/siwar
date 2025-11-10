@@ -6,9 +6,10 @@ interface ConversationViewProps {
   messages: Message[];
   sessionId: string | null;
   sessionDisplayName: string | null;
+  onBack: () => void;
 }
 
-const ConversationView: React.FC<ConversationViewProps> = ({ messages, sessionId, sessionDisplayName }) => {
+const ConversationView: React.FC<ConversationViewProps> = ({ messages, sessionId, sessionDisplayName, onBack }) => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,8 +36,17 @@ const ConversationView: React.FC<ConversationViewProps> = ({ messages, sessionId
 
   return (
     <>
-      <header className="p-4 border-b border-slate-700/60 bg-slate-800/20">
-        <h2 className="text-lg font-semibold text-white truncate">
+      <header className="p-4 border-b border-slate-700/60 bg-slate-800/20 flex items-center gap-4">
+        <button 
+          onClick={onBack} 
+          className="md:hidden p-1 rounded-full text-slate-300 hover:bg-slate-700 hover:text-white transition-colors"
+          aria-label="Back to sessions"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <h2 className="text-lg font-semibold text-white truncate min-w-0">
           Conversation with <span className="text-sky-400 font-bold">{sessionDisplayName}</span>
         </h2>
       </header>

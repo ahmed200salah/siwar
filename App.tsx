@@ -94,8 +94,8 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="flex h-screen w-full bg-slate-900 text-slate-200 font-sans">
-      <aside className="w-full md:w-1/4 lg:w-1/5 bg-slate-800/50 border-r border-slate-700/60 flex flex-col">
+    <div className="flex h-screen w-full bg-slate-900 text-slate-200 font-sans overflow-hidden">
+      <aside className={`w-full md:w-1/4 lg:w-1/5 bg-slate-800/50 border-r border-slate-700/60 flex-col ${selectedSession ? 'hidden md:flex' : 'flex'}`}>
         <header className="p-4 border-b border-slate-700/60 flex items-center">
             <SiwarLogo />
             <h1 className="text-xl font-bold text-white tracking-wide">Siwar AI</h1>
@@ -124,11 +124,12 @@ const App: React.FC = () => {
             Created by AI Orbit ❤️
         </footer>
       </aside>
-      <main className="flex-1 flex flex-col">
+      <main className={`flex-1 flex-col ${selectedSession ? 'flex' : 'hidden md:flex'}`}>
         <ConversationView 
             messages={currentMessages} 
             sessionId={selectedSession}
             sessionDisplayName={selectedSessionDisplayName}
+            onBack={() => setSelectedSession(null)}
         />
       </main>
     </div>
